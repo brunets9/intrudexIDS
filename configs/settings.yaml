@@ -1,0 +1,35 @@
+project:
+  name: "IDS with Machine Learning"
+  description: "Intrusion detection system with a machine learning real-time detection, using RandomForest"
+  version: "1.0"
+
+paths:
+  data_raw: "/data/raw/MachineLearningCVE/"
+  data_processed: "data/processed/"
+  model_save_path: "models/"
+  live_capture_path: "data/live_captures/"
+  logs: "logs/"
+
+preprocessing:
+  drop_columns:
+    - "Flow ID"
+    - "Timestamp"
+  scaling_method: "StandardScaler"
+  split:
+    test_size: 0.2
+    random_state: 42
+
+model:
+  type: "RandomForest"
+  random_state: 42
+  n_estimators: 200 # This is the number of trees of RandomForest model
+  max_depth: 10
+  min_samples_split: 2
+  min_samples_leaf: 1
+
+
+real_time_detection:
+  interface: "eth0"
+  packet_count: 0  # 0 for an infinite detection
+  model_threshold: 0.5 
+
